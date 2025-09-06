@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: leaderboard-system
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/leaderboard
+    username: postgres
+    password: 132580
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop  # cria e remove as tabelas a cada execução
+    show-sql: true           # exibe os SQLs gerados
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+#    password: ${REDIS_PASSWORD:}
+    timeout: 2000ms
+    lettuce:
+      pool:
+        max-active: 10
+        max-wait: -1ms
+        max-idle: 10
+        min-idle: 0
+
+server:
+  port: 8080
+
+jwt:
+  secret: ${JWT_SECRET:mySecretKey123456789012345678901234567890}
+  expiration: 86400000 # 24 horas
+
+logging:
+  level:
+    com.leaderboard: DEBUG
+    org.springframework.security: INFO
+    org.hibernate.SQL: DEBUG
