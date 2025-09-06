@@ -16,12 +16,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/scores")
-@CrossOrigin(origins = "*",maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequiredArgsConstructor
-
 public class ScoreController {
-    private ScoreService scoreService;
 
+    // ✅ CORREÇÃO: Adicionar final
+    private final ScoreService scoreService;
 
     @PostMapping("/submit")
     public ResponseEntity<ApiResponse<ScoreDto>> submitScore(
@@ -35,6 +35,7 @@ public class ScoreController {
                     .body(ApiResponse.error("Erro ao submeter score: " + e.getMessage()));
         }
     }
+
     @GetMapping("/my")
     public ResponseEntity<ApiResponse<List<ScoreDto>>> getMyScores(
             @AuthenticationPrincipal UserPrincipal userPrincipal) {

@@ -1,24 +1,23 @@
 package com.leaderboard.service;
+
 import com.leaderboard.dto.GameDto;
 import com.leaderboard.entity.Game;
 import com.leaderboard.exception.ResourceNotFoundException;
 import com.leaderboard.repository.GameRepository;
 import com.leaderboard.repository.ScoreRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
-
 @Service
+@RequiredArgsConstructor
 public class GameService {
 
-    private GameRepository gameRepository;
-    private ScoreRepository scoreRepository;
+    // ✅ CORREÇÃO: Adicionar final para funcionar com @RequiredArgsConstructor
+    private final GameRepository gameRepository;
+    private final ScoreRepository scoreRepository;
 
     public List<GameDto> findAll() {
         List<Game> games = gameRepository.findAllOrderByCreatedAtDesc();

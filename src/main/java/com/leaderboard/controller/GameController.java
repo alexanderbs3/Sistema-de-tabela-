@@ -4,6 +4,7 @@ import com.leaderboard.dto.ApiResponse;
 import com.leaderboard.dto.GameDto;
 import com.leaderboard.service.GameService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,11 +15,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/games")
-@CrossOrigin(origins = "*",maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequiredArgsConstructor
-
 public class GameController {
-    private GameService gameService;
+
+    // ✅ CORREÇÃO: Adicionar final para funcionar com @RequiredArgsConstructor
+    private final GameService gameService;
 
     @GetMapping("/public")
     public ResponseEntity<ApiResponse<List<GameDto>>> getAllGames() {
@@ -30,8 +32,4 @@ public class GameController {
                     .body(ApiResponse.error("Erro ao carregar jogos: " + e.getMessage()));
         }
     }
-
-
-
-
 }

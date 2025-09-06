@@ -1,4 +1,4 @@
-// SecurityConfig.java - CORREÇÃO CORS
+// SecurityConfig.java - CORREÇÃO DEFINITIVA
 package com.leaderboard.config;
 
 import com.leaderboard.security.CustomUserDetailsService;
@@ -63,17 +63,14 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // CORREÇÃO: Para desenvolvimento local
-        configuration.setAllowedOrigins(Arrays.asList(
-                "http://localhost:3000",
-                "http://localhost:8080",
-                "http://127.0.0.1:3000",
-                "http://127.0.0.1:8080"
-        ));
-
+        // ✅ SOLUÇÃO DEFINITIVA: Permitir qualquer origem SEM credentials
+        configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.setAllowCredentials(true);
+
+        // ✅ CORREÇÃO: Remover allowCredentials para funcionar com "*"
+        // configuration.setAllowCredentials(true); // REMOVIDO
+
         configuration.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

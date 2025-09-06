@@ -5,7 +5,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/leaderboard
     username: postgres
-    password: 132580
+    password:
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -20,7 +20,7 @@ spring:
   redis:
     host: ${REDIS_HOST:localhost}
     port: ${REDIS_PORT:6379}
-#    password: ${REDIS_PASSWORD:}
+    #    password: ${REDIS_PASSWORD:}
     timeout: 2000ms
     lettuce:
       pool:
@@ -33,7 +33,8 @@ server:
   port: 8080
 
 jwt:
-  secret: ${JWT_SECRET:mySecretKey123456789012345678901234567890}
+  # ✅ CORREÇÃO: Chave JWT com 512 bits (Base64) - SEGURA para HS512
+  secret: ${JWT_SECRET:dGhpc2lzYXZlcnlzZWN1cmVrZXl0aGF0aXNhdGxlYXN0MjU2Yml0c2xvbmdmb3JKV1RzaWduaW5nYW5kdmVyaWZpY2F0aW9uaW5vdXJhcHBsaWNhdGlvbg==}
   expiration: 86400000 # 24 horas
 
 logging:

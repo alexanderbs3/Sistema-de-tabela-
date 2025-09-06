@@ -19,11 +19,11 @@ import java.util.List;
 @RequestMapping("/api/leaderboard")
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequiredArgsConstructor
-
 public class LeaderboardController {
 
-    private LeaderboardService leaderboardService;
-    private UserService userService;
+    // ✅ CORREÇÃO: Adicionar final
+    private final LeaderboardService leaderboardService;
+    private final UserService userService;
 
     @GetMapping("/public/global")
     public ResponseEntity<ApiResponse<List<LeaderboardEntry>>> getGlobalLeaderboard(
@@ -33,9 +33,8 @@ public class LeaderboardController {
             return ResponseEntity.ok(ApiResponse.success("Leaderboard global carregado", leaderboard));
         } catch (Exception e) {
             return ResponseEntity.badRequest()
-                    .body(ApiResponse.error("Error ao carregar leaderboard do jogo: " + e.getMessage()));
+                    .body(ApiResponse.error("Erro ao carregar leaderboard: " + e.getMessage()));
         }
-
     }
 
     @GetMapping("/my/ranking")
@@ -74,7 +73,6 @@ public class LeaderboardController {
                     .body(ApiResponse.error("Erro ao carregar posição no jogo: " + e.getMessage()));
         }
     }
-
 
     @GetMapping("/range/global")
     public ResponseEntity<ApiResponse<List<LeaderboardEntry>>> getGlobalRankRange(
@@ -127,7 +125,6 @@ public class LeaderboardController {
         }
     }
 
-    // Endpoint administrativo para sincronizar leaderboards
     @PostMapping("/admin/sync")
     public ResponseEntity<ApiResponse<String>> syncLeaderboards() {
         try {
@@ -139,7 +136,6 @@ public class LeaderboardController {
         }
     }
 
-    // Endpoint para verificar status dos leaderboards
     @GetMapping("/admin/status")
     public ResponseEntity<ApiResponse<LeaderboardService.LeaderboardStats>> getLeaderboardStatus() {
         try {
